@@ -1,0 +1,14 @@
+/twist_mux:
+  ros__parameters:
+    topics:
+      keyboard:
+        topic: key_vel
+        timeout: 0.00001
+        priority: 250
+      
+      tracking:
+        topic: tracking_vel
+        timeout: 0.00001
+        priority: 50
+
+      

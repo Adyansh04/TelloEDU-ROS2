@@ -1,0 +1,18 @@
+{
+    "0": "cupboard = monitor, mouse, connector, cables",
+    "1": "drawer = notebooks, pens, paper clips, sticky notes",
+    "2": "shelf = books, photo frames, decorative items, awards",
+    "3": "closet = shirts, pants, jackets, shoes",
+    "4": "kitchen = pots, pans, cutlery, plates",
+    "5": "bathroom = towels, soap, shampoo, toothbrush",
+    "6": "garage = tools, bicycle, lawn mower, car accessories",
+    "7": "attic = old clothes, holiday decorations, suitcases, memorabilia",
+    "8": "office = laptop, printer, files, stapler",
+    "9": "living room = television, sofa, coffee table, lamps",
+    "10": "bedroom = bed, wardrobe, nightstand, alarm clock",
+    "11": "dining room = dining table, chairs, crockery, cutlery",
+    "12": "laundry room = washing machine, dryer, laundry basket, detergent",
+    "13": "pantry = canned food, spices, snacks, beverages",
+    "14": "balcony = plants, garden tools, outdoor furniture, grill",
+    "15": "basement = storage boxes, old electronics, sports equipment, cleaning supplies"
+}

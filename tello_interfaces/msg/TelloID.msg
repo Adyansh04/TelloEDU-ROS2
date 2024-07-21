@@ -1,0 +1,3 @@
+string sdk_version
+
+string serial_numbers
