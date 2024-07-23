@@ -23,30 +23,64 @@ def generate_launch_description():
         executable='controller.py',
         name='tello_keyboard_control',
         output='screen'
-        remappings=[('control'), ('key_vel')]
+        # remappings=[('control'), ('key_vel')]
     )
 
-    # yolo_detection = Node(
-    #     package='tello',
-    #     executable='yolo_detection.py',
-    #     name='yolo_detection',
-    #     output='screen'
-    # )
-
-    twist_mux = Node(
-        package='twist_mux',
-        executable='twist_mux',
+    yolo_detection = Node(
+        package='tello',
+        executable='yolo_detection.py',
+        name='yolo_detection',
         output='screen',
-        remappings=[('cmd_vel_out', '/control')], 
-        parameters=[params_file]
+        parameters=[{'model': 'object'}]        
     )
+
+    object_tracking = Node(
+        package='tello',
+        executable='object_tracking.py',
+        name='object_tracking',
+        output='screen'
+    )
+
+    compressed_image_viewer = Node(
+        package='tello',
+        executable='compressed_image_viewer.py',
+        name='compressed_image_viewer',
+        output='screen'
+    )
+
+    aruco_detection = Node(
+        package='tello',
+        executable='aruco_detection.py',
+        name='aruco_detection',
+        output='screen'
+    )
+
+    aruco_tracking = Node(
+        package='tello',
+        executable='aruco_tracking.py',
+        name='aruco_tracking',
+        output='screen'
+    )
+
+    # twist_mux = Node(
+    #     package='twist_mux',
+    #     executable='twist_mux',
+    #     output='screen',
+    #     remappings=[('cmd_vel_out', '/control')], 
+    #     parameters=[params_file]
+    # )
 
 
 
     return LaunchDescription([
         tello_server,
-        tello_keyboard_control,
-        twist_mux
+        yolo_detection,
+        # object_tracking,
+        compressed_image_viewer,
+        aruco_detection,
+        aruco_tracking,
+        # tello_keyboard_control,
+        # twist_mux
         # Node(
         #     package='rviz2',
         #     namespace='',

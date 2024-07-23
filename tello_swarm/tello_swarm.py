@@ -3,9 +3,9 @@ from djitellopy import Tello
 
 # List of drone IP addresses
 tellos = [
-           "192.168.179.228", # Drone 1
-           "192.168.179.40", # Drone 2 left
-           "192.168.179.187" # Drone 3 right
+           "192.168.60.228", # Drone 1
+           "192.168.66.40", # Drone 2 left
+           "192.168.66.187" # Drone 3 right
         ]
 
 swarm = TelloSwarm.fromIps(tellos)

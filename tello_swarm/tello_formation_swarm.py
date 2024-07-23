@@ -1,42 +1,68 @@
 from djitellopy import TelloSwarm
+from time import sleep
 
 # List of drone IP addresses
 tellos = [
-    "192.168.179.228",  # Drone 1
-    "192.168.179.40",   # Drone 2 left
-    "192.168.179.187"   # Drone 3 right
+    "192.168.66.228",  # Drone 1
+    "192.168.66.40",   # Drone 2
+    "192.168.66.187"   # Drone 3
 ]
 
 # Create a TelloSwarm object
 swarm = TelloSwarm.fromIps(tellos)
 
 # Define custom commands for each drone
-def triangular_formation(i, tello):
-    if i == 0:  # Drone 1 (base of the triangle)
-        tello.move_up(50)
-        tello.move_forward(100)
-    elif i == 1:  # Drone 2 (left side of the triangle)
-        tello.move_up(50)
-        tello.move_left(50)
-        tello.move_forward(100)
-    elif i == 2:  # Drone 3 (right side of the triangle)
-        tello.move_up(50)
-        tello.move_right(50)
-        tello.move_forward(100)
+def initial_position(i, tello):
+    tello.move_up(50)
+    if i == 0:
+        tello.move_left(30)
+    elif i == 1:
+        tello.move_forward(50)
+    elif i == 2:
+        tello.move_right(30)
 
-def create_letter_A(i, tello):
-    if i == 0:  # Drone 1 (left leg of A)
-        tello.move_up(100)
+def triangle_formation(i, tello):
+    if i == 0:
         tello.move_forward(50)
-        tello.move_down(100)
-    elif i == 1:  # Drone 2 (right leg of A)
-        tello.move_up(100)
+    elif i == 1:
+        tello.move_left(30)
+        tello.move_back(50)
+    elif i == 2:
+        tello.move_right(30)
+        tello.move_back(50)
+
+def line_formation(i, tello):
+    if i == 0:
+        tello.move_left(30)
+    elif i == 1:
+        tello.move_forward(30)
+    elif i == 2:
+        tello.move_right(30)
+
+def circle_formation(i, tello):
+    if i == 0:
+        tello.curve_xyz_speed(50, 50, 0, 100, 0, 0, 20)
+    elif i == 1:
+        tello.curve_xyz_speed(-50, 50, 0, -100, 0, 0, 20)
+    elif i == 2:
+        tello.curve_xyz_speed(50, -50, 0, 100, -100, 0, 20)
+
+def v_formation(i, tello):
+    if i == 0:
+        tello.move_left(30)
         tello.move_forward(50)
-        tello.move_down(100)
-    elif i == 2:  # Drone 3 (cross of A)
-        tello.move_up(50)
-        tello.move_left(25)
-        tello.move_right(50)
+    elif i == 1:
+        tello.move_forward(50)
+    elif i == 2:
+        tello.move_right(30)
+        tello.move_forward(50)
+
+def return_to_start(i, tello):
+    tello.move_back(50)
+    if i == 0:
+        tello.move_right(30)
+    elif i == 2:
+        tello.move_left(30)
 
 # Connect to the swarm and execute commands
 swarm.connect()
@@ -44,11 +70,23 @@ swarm.connect()
 # Take off all drones
 swarm.takeoff()
 
-# Perform triangular formation
-swarm.parallel(triangular_formation)
+# Move to initial positions
+# swarm.parallel(initial_position)
 
-# Create letter A
-swarm.parallel(create_letter_A)
+# # Perform triangular formation
+# swarm.parallel(triangle_formation)
+
+# # Form a line
+# swarm.parallel(line_formation)
+
+# Form a circle
+swarm.parallel(circle_formation)
+
+# Form a "V" shape
+swarm.parallel(v_formation)
+
+# Return to initial positions
+swarm.parallel(return_to_start)
 
 # Land all drones
 swarm.land()

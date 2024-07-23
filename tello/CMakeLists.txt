@@ -52,6 +52,7 @@ install(PROGRAMS
   scripts/object_tracking.py
   scripts/aruco_detection.py
   scripts/aruco_tracking.py
+  scripts/face_tracking.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
