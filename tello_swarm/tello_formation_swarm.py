@@ -21,7 +21,7 @@ def initial_position(i, tello):
     elif i == 2:
         tello.move_right(30)
 
-def triangle_formation(i, tello):
+def formation1(i, tello):
     if i == 0:
         tello.move_forward(50)
     elif i == 1:
@@ -31,7 +31,7 @@ def triangle_formation(i, tello):
         tello.move_right(30)
         tello.move_back(50)
 
-def line_formation(i, tello):
+def formation2(i, tello):
     if i == 0:
         tello.move_left(30)
     elif i == 1:
@@ -39,7 +39,7 @@ def line_formation(i, tello):
     elif i == 2:
         tello.move_right(30)
 
-def circle_formation(i, tello):
+def formation3(i, tello):
     if i == 0:
         tello.curve_xyz_speed(50, 50, 0, 100, 0, 0, 20)
     elif i == 1:
@@ -47,7 +47,7 @@ def circle_formation(i, tello):
     elif i == 2:
         tello.curve_xyz_speed(50, -50, 0, 100, -100, 0, 20)
 
-def v_formation(i, tello):
+def formation4(i, tello):
     if i == 0:
         tello.move_left(30)
         tello.move_forward(50)
@@ -57,7 +57,7 @@ def v_formation(i, tello):
         tello.move_right(30)
         tello.move_forward(50)
 
-def return_to_start(i, tello):
+def end(i, tello):
     tello.move_back(50)
     if i == 0:
         tello.move_right(30)
@@ -70,23 +70,16 @@ swarm.connect()
 # Take off all drones
 swarm.takeoff()
 
-# Move to initial positions
-# swarm.parallel(initial_position)
 
-# # Perform triangular formation
-# swarm.parallel(triangle_formation)
+swarm.parallel(formation1)
 
-# # Form a line
-# swarm.parallel(line_formation)
+swarm.parallel(formation2)
 
-# Form a circle
-swarm.parallel(circle_formation)
+swarm.parallel(formation3)
+               
+swarm.parallel(formation4)
 
-# Form a "V" shape
-swarm.parallel(v_formation)
-
-# Return to initial positions
-swarm.parallel(return_to_start)
+swarm.parallel(end)
 
 # Land all drones
 swarm.land()

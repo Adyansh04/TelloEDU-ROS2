@@ -1,0 +1,30 @@
+{
+    "timestamp": "2024-07-23T18:15:56.433023",
+    "tracked_aruco_ids": [
+        {
+            "aruco_id": 0,
+            "description": "cupboard = monitor, mouse, connector, cables",
+            "timestamp": "2024-07-23T18:15:56.433034"
+        },
+        {
+            "aruco_id": 1,
+            "description": "drawer = notebooks, pens, paper clips, sticky notes",
+            "timestamp": "2024-07-23T18:15:56.433037"
+        },
+        {
+            "aruco_id": 10,
+            "description": "bedroom = bed, wardrobe, nightstand, alarm clock",
+            "timestamp": "2024-07-23T18:15:56.433039"
+        },
+        {
+            "aruco_id": 13,
+            "description": "pantry = canned food, spices, snacks, beverages",
+            "timestamp": "2024-07-23T18:15:56.433041"
+        },
+        {
+            "aruco_id": 14,
+            "description": "balcony = plants, garden tools, outdoor furniture, grill",
+            "timestamp": "2024-07-23T18:15:56.433042"
+        }
+    ]
+}

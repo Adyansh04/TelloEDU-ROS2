@@ -3,6 +3,7 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
+from launch.actions import ExecuteProcess
 import yaml
 
 
@@ -18,34 +19,56 @@ def generate_launch_description():
         # parameters=[{'tello_ip': ''}]
     )
 
-    tello_keyboard_control = Node(
-        package='tello',
-        executable='controller.py',
-        name='tello_keyboard_control',
-        output='screen'
-        # remappings=[('control'), ('key_vel')]
-    )
+    tello_keyboard_control = ExecuteProcess(
+                                 cmd=['gnome-terminal', '--', 'bash', '-c', 'ros2 run tello controller.py'],
+                                 output='screen',
 
-    yolo_detection = Node(
+                              )
+
+    yolo_detection_object = Node(
         package='tello',
         executable='yolo_detection.py',
-        name='yolo_detection',
+        name='yolo_detection_object',
         output='screen',
-        parameters=[{'model': 'object'}]        
+        parameters=[{'model': 'object'}],   
+        remappings=[
+            ('yolo_results', 'yolo_results_object'),
+            ('annotated_compressed_image', 'annotated_compressed_image/object')
+            ]     
     )
 
-    object_tracking = Node(
+    yolo_detection_face = Node(
         package='tello',
-        executable='object_tracking.py',
-        name='object_tracking',
-        output='screen'
+        executable='yolo_detection.py',
+        name='yolo_detection_face',
+        output='screen',
+        parameters=[{'model': 'face'}],
+        remappings=[
+            ('yolo_results', 'yolo_results_face'),
+            ('annotated_compressed_image', 'annotated_compressed_image/face')
+            ]
     )
 
-    compressed_image_viewer = Node(
+    compressed_image_viewer_object = Node(
         package='tello',
         executable='compressed_image_viewer.py',
-        name='compressed_image_viewer',
-        output='screen'
+        name='compressed_image_viewer_object',
+        output='screen',
+        remappings=[
+            ('annotated_compressed_image', 'annotated_compressed_image/object'),
+            ('aruco_annotations_image', 'aruco_annotations_object')
+        ]
+    )
+
+    compressed_image_viewer_face = Node(
+        package='tello',
+        executable='compressed_image_viewer.py',
+        name='compressed_image_viewer_face',
+        output='screen',
+        remappings=[
+            ('annotated_compressed_image', 'annotated_compressed_image/face'),
+            ('aruco_annotations_image', 'aruco_annotations_face')
+        ]
     )
 
     aruco_detection = Node(
@@ -59,33 +82,17 @@ def generate_launch_description():
         package='tello',
         executable='aruco_tracking.py',
         name='aruco_tracking',
-        output='screen'
+        output='screen',
+        parameters=[{'aruco_list': [0, 1, 2, 10]}]
     )
-
-    # twist_mux = Node(
-    #     package='twist_mux',
-    #     executable='twist_mux',
-    #     output='screen',
-    #     remappings=[('cmd_vel_out', '/control')], 
-    #     parameters=[params_file]
-    # )
-
-
 
     return LaunchDescription([
         tello_server,
-        yolo_detection,
-        # object_tracking,
-        compressed_image_viewer,
         aruco_detection,
         aruco_tracking,
-        # tello_keyboard_control,
-        # twist_mux
-        # Node(
-        #     package='rviz2',
-        #     namespace='',
-        #     executable='rviz2',
-        #     name='rviz2',
-        #     arguments=['-d' + os.path.join(get_package_share_directory('skynet'), 'config', 'config.rviz')],
-        # )
+        yolo_detection_object,
+        yolo_detection_face,
+        tello_keyboard_control,
+        compressed_image_viewer_face,
+        compressed_image_viewer_object
     ])

@@ -67,7 +67,7 @@ class FaceTrackingNode(Node):
         # Subscribe to YOLO results topic
         self.subscription = self.create_subscription(
             YoloResults,
-            'yolo_results',
+            'yolo_results_face',
             self.yolo_callback,
             10
         )

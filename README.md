@@ -29,25 +29,40 @@ TelloEDU-ROS2 provides a comprehensive solution for Tello EDU drones, offering f
 
 ## Project Setup
 1. Clone the repository:
-    ```sh
+    \`\`\`sh
     git clone https://github.com/your_username/TelloEDU-ROS2.git
     cd TelloEDU-ROS2
-    ```
+    \`\`\`
 2. Build the workspace:
-    ```sh
+    \`\`\`sh
     colcon build
-    ```
+    \`\`\`
 3. Source the setup file:
-    ```sh
+    \`\`\`sh
     source install/setup.bash
-    ```
+    \`\`\`
 
 ## Running the Project
-To launch the various functionalities, use the provided launch files:
-- Startup:
-    ```sh
+### Connect to Tello Drone WiFi
+1. Connect your computer to the Tello drone's WiFi network.
+
+### Launch the Startup File
+2. Run the startup launch file which will also open a terminal for keyboard control:
+    \`\`\`sh
     ros2 launch tello tello_startup.launch.py
-    ```
+    \`\`\`
+
+### Object Tracking
+To start object tracking, use the following command (replace \`target_class_id\` with the appropriate ID for the target object):
+\`\`\`sh
+ros2 run tello object_tracking.py --ros-args -p target_class_id:=20
+\`\`\`
+
+### Face Tracking
+To start face tracking:
+\`\`\`sh
+ros2 run tello face_tracking.py
+\`\`\`
 
 ## Explanation of Important Scripts
 ### Aruco Detection and Tracking
@@ -63,10 +78,15 @@ To launch the various functionalities, use the provided launch files:
 - **controller.py**: Allows manual control of the drone using keyboard inputs.
 
 ## Swarm Scripts
-The `tello_swarm` directory contains scripts for swarm operations:
-- **swarm.py**: Main swarm control script.
-- **set_drone_ap.py**: Script to change the access point mode for the drone.
-- **tello_formation_swarm.py**: Script for controlling multiple drones in a formation.
+The \`tello_swarm\` directory contains scripts for swarm operations:
+1. **set_drone_ap.py**: Change the Tello drone's WiFi configuration to connect all drones to a single network. Use the following command:
+    \`\`\`sh
+    python set_drone_ap.py -s [SSID] -p [Password]
+    \`\`\`
+2. **tello_formation_swarm.py**: After connecting all drones to the same network, run this script to control them in formation:
+    \`\`\`sh
+    python tello_formation_swarm.py
+    \`\`\`
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](tello/LICENSE) file for details.
