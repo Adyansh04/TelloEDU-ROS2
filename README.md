@@ -63,6 +63,27 @@ To start face tracking:
 ```sh
 ros2 run tello face_tracking.py
 ```
+### Pulling the Docker Image
+To pull the latest version of the Docker image, use the following command:
+```bash
+docker pull adyansh04/crazyflie-ros2:latest
+```
+
+### Running the Docker Container
+To run the container with access to your host's display and USB devices, including GPU support, use the following shell script. This script should be placed in the `docker/` folder of your project and can be named `run_container.sh`:
+```bash
+./docker/run_container.sh
+```
+
+Ensure that this script is executable:
+```bash
+chmod +x docker/run_container.sh
+```
+### Opening Another Terminal Session
+To interact with the same running Docker container from another terminal session, use the `docker exec` command. Here's a shell script that can be named `open_terminal.sh` in the docker/ folder:
+```bash
+./docker/open_terminal.sh
+```
 
 ## Explanation of Important Scripts
 ### Aruco Detection and Tracking
