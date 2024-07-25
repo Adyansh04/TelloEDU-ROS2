@@ -1,0 +1,2 @@
+tello/models/face_recognition.pt filter=lfs diff=lfs merge=lfs -text
+tello/models/yolov8x.pt filter=lfs diff=lfs merge=lfs -text

@@ -41,10 +41,10 @@ class ObjectDetectionYOLO(Node):
         self.model_type = self.get_parameter('model').get_parameter_value().string_value
 
         if self.model_type == 'face':
-            self.model = YOLO(r'/home/adyansh/uav_autonomous_ML/face_detection/runs/detect/train10/weights/best.pt')
+            self.model = YOLO(r'/home/adyansh/uav_autonomous_ML/tello-ws/src/tello/models/face_recognition.pt')
             self.get_logger().info('YOLO face model loaded successfully.')
         else: 
-            self.model = YOLO(r'/home/adyansh/uav_autonomous_ML/face_detection/yolov8x.pt')
+            self.model = YOLO(r'/home/adyansh/uav_autonomous_ML/tello-ws/src/tello/models/yolov8x.pt')
             self.get_logger().info('YOLO object model loaded successfully.')
 
         # Set the IOU and Confidence threshold
